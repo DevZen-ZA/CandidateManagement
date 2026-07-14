@@ -1,0 +1,56 @@
+﻿@page "/jobs"
+@using CandidateManagement.Client.Components
+@using Libraries.Models
+
+@attribute [StreamRendering]
+
+<h3>JobList</h3>
+
+
+
+@if(jobs is null)
+{
+    <p>No Jobs vacancies</p>
+}
+else
+{
+    foreach(var job in jobs)
+    {
+        <JobComponent Job="job"/>
+    }
+}
+
+
+@code {
+    private IEnumerable<Job> jobs;
+
+    protected override Task OnInitializedAsync()
+    {
+        jobs = new List<Job>
+        {
+            new Job
+            {
+                Id = Guid.NewGuid(),
+                Title = "Software Developer",
+                Description = "Develop and maintain software applications.",
+                Location = "Johannesburg"
+            },
+            new Job
+            {
+                Id = Guid.NewGuid(),
+                Title = "DevOps Engineer",
+                Description = "Manage CI/CD pipelines and cloud infrastructure.",
+                Location = "Cape Town"
+            },
+            new Job
+            {
+                Id = Guid.NewGuid(),
+                Title = "Technical Lead",
+                Description = "Lead the development team and oversee technical solutions.",
+                Location = "Remote"
+            }
+        };
+
+        return base.OnInitializedAsync();
+    }
+}
